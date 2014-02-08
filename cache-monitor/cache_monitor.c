@@ -61,6 +61,7 @@
 #define SET_EVENT_MASK(eax, event, umask)    eax |= (event | (umask << 8))  
 
 /*MSR EN flag: when set start the counter!*/
+//#define MSR_ENFLAG      (0x1<<22)
 #define MSR_ENFLAG      (0x1<<22)
 
 
@@ -87,11 +88,11 @@ static inline void rtxen_write_msr(uint32_t eax, uint32_t ecx)
         : "eax", "ecx", "edx" /* clobbered */);
 }
 
-static inline void  rtxen_read_msr(uint32_t ecx, uint32_t eax, uint32_t edx)
+static inline void  rtxen_read_msr(uint32_t* ecx, uint32_t *eax, uint32_t* edx)
 {    __asm__ __volatile__(\
         "rdmsr"\
-        :"=d" ((uint32_t)edx), "=a" ((uint32_t)eax)\
-        :
+        :"=d" (*edx), "=a" (*eax)\
+        :"c"(*ecx)
         );
 }
 
@@ -107,6 +108,7 @@ static inline void delay(void )
 
 enum cache_level
 {
+    UOPS,
     L1I,
     L1D,
     L2,
@@ -118,9 +120,21 @@ int init_module(void)
     enum cache_level op;
     uint32_t eax, edx, ecx;
     uint64_t l3_all;
-    op = L3;
+    op = UOPS;
     switch(op)
     {
+    case UOPS:
+        eax = 0x0001010E;
+        eax |= MSR_ENFLAG;
+        ecx = 0x187;
+        printk(KERN_INFO "UOPS Demo: write_msr: eax=%#010x, ecx=%#010x\n", eax, ecx);
+        rtxen_write_msr(eax, ecx);
+        ecx = 0xc2;
+        eax = 1;
+        edx = 2;
+        rtxen_read_msr(&ecx, &eax, &edx);
+        printk(KERN_INFO "UOPS Demo: read_msr: edx=%#010x, eax=%#010x\n", edx, eax);
+        break;
     case L3: 
         eax = 0;
         SET_MSR_USR_BIT(eax);
@@ -130,7 +144,7 @@ int init_module(void)
         ecx = PERFEVTSEL2;
         printk(KERN_INFO "before wrmsr: eax=%#010x, ecx=%#010x\n", eax, ecx);
         rtxen_write_msr(eax, ecx);
-        printk(KERN_INFO "before wrmsr: eax=%#010x, ecx=%#010x\n", eax, ecx);
+        printk(KERN_INFO "after wrmsr: eax=%#010x, ecx=%#010x\n", eax, ecx);
         printk(KERN_INFO "L3 all request set MSR PMC2\n");
         printk(KERN_INFO "delay by access an array\n");
         delay();
@@ -138,7 +152,7 @@ int init_module(void)
         eax = 1;
         edx = 2;
         printk(KERN_INFO "rdmsr: ecx=%#010x\n", ecx);
-        rtxen_read_msr(ecx, eax, edx);
+        rtxen_read_msr(&ecx, &eax, &edx); /*need to pass into address!*/
         l3_all = ( ((uint64_t) edx << 32) | eax );
         printk(KERN_INFO "rdmsr: L3 all request is %llu (%#010lx)\n", l3_all, (unsigned long)l3_all);
         break;
