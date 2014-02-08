@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CLEAR_MSR_OS_BIT	cache_monitor.c	59;"	d	file:
+CLEAR_MSR_USR_BIT	cache_monitor.c	57;"	d	file:
+L1D	cache_monitor.c	/^    L1D,$/;"	e	enum:cache_level	file:
+L1D_ALLREQ_EVENT	cache_monitor.c	29;"	d	file:
+L1D_ALLREQ_MASK	cache_monitor.c	30;"	d	file:
+L1D_LDMISS_EVENT	cache_monitor.c	31;"	d	file:
+L1D_LDMISS_MASK	cache_monitor.c	32;"	d	file:
+L1D_STMISS_EVENT	cache_monitor.c	33;"	d	file:
+L1D_STMISS_MASK	cache_monitor.c	34;"	d	file:
+L1I	cache_monitor.c	/^    L1I,$/;"	e	enum:cache_level	file:
+L1I_ALLHIT_EVENT	cache_monitor.c	22;"	d	file:
+L1I_ALLHIT_MASK	cache_monitor.c	23;"	d	file:
+L1I_ALLMISS_EVENT	cache_monitor.c	24;"	d	file:
+L1I_ALLMISS_MASK	cache_monitor.c	25;"	d	file:
+L2	cache_monitor.c	/^    L2,$/;"	e	enum:cache_level	file:
+L2_ALLCODEMISS_MASK	cache_monitor.c	43;"	d	file:
+L2_ALLCODEREQ_MASK	cache_monitor.c	42;"	d	file:
+L2_ALLMISS_EVENT	cache_monitor.c	39;"	d	file:
+L2_ALLMISS_MASK	cache_monitor.c	40;"	d	file:
+L2_ALLREQ_EVENT	cache_monitor.c	37;"	d	file:
+L2_ALLREQ_MASK	cache_monitor.c	38;"	d	file:
+L3	cache_monitor.c	/^    L3$/;"	e	enum:cache_level	file:
+L3_ALLMISS_EVENT	cache_monitor.c	49;"	d	file:
+L3_ALLMISS_MASK	cache_monitor.c	50;"	d	file:
+L3_ALLREQ_EVENT	cache_monitor.c	47;"	d	file:
+L3_ALLREQ_MASK	cache_monitor.c	48;"	d	file:
+MSR_ENFLAG	cache_monitor.c	64;"	d	file:
+OS_BIT	cache_monitor.c	53;"	d	file:
+PERFEVTSEL0	cache_monitor.c	9;"	d	file:
+PERFEVTSEL1	cache_monitor.c	10;"	d	file:
+PERFEVTSEL2	cache_monitor.c	11;"	d	file:
+PERFEVTSEL3	cache_monitor.c	12;"	d	file:
+PMC0	cache_monitor.c	15;"	d	file:
+PMC1	cache_monitor.c	16;"	d	file:
+PMC2	cache_monitor.c	17;"	d	file:
+PMC3	cache_monitor.c	18;"	d	file:
+SET_EVENT_MASK	cache_monitor.c	61;"	d	file:
+SET_MSR_OS_BIT	cache_monitor.c	58;"	d	file:
+SET_MSR_USR_BIT	cache_monitor.c	56;"	d	file:
+USR_BIT	cache_monitor.c	52;"	d	file:
+cache_level	cache_monitor.c	/^enum cache_level$/;"	g	file:
+cleanup_module	cache_monitor.c	/^void cleanup_module(void)$/;"	f
+delay	cache_monitor.c	/^static inline void delay()$/;"	f	file:
+init_module	cache_monitor.c	/^int init_module(void)$/;"	f
+rtxen_read_msr	cache_monitor.c	/^static inline void  rtxen_read_msr(uint32_t ecx, uint32_t eax, uint32_t edx)$/;"	f	file:
+rtxen_write_msr	cache_monitor.c	/^static inline void rtxen_write_msr(uint32_t eax, uint32_t ecx)$/;"	f	file:
