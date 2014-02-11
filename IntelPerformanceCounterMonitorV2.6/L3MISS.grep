@@ -1,0 +1,42 @@
+Binary file ./pcm-pcie.o matches
+Binary file ./pcm-power.x matches
+grep: ./KSysGuard: No such file or directory
+grep: HOWTO.pdf: No such file or directory
+Binary file ./pcm-memory.o matches
+Binary file ./pcm-numa.o matches
+Binary file ./pcm-sensor.o matches
+Binary file ./pcm-tsx.o matches
+grep: ./KSysGuard: No such file or directory
+grep: HOWTO.docx: No such file or directory
+Binary file ./pcm-numa.x matches
+Binary file ./pcm-power.o matches
+./tags:L3Miss	cpucounters.h	/^        uint64 L3Miss;$/;"	m	union:BasicCounterState::__anon5
+./cpucounters.h:        uint64 L3Miss;
+./cpucounters.h:    , L3Miss(0)
+./cpucounters.h:        return 180. * double(after.L3Miss - before.L3Miss) / double(clocks);
+./cpucounters.h:    uint64 L3Miss = after.L3Miss - before.L3Miss;
+./cpucounters.h:    uint64 all = L2Hit + L2HitM + L3UnsharedHit + L3Miss;
+./cpucounters.h:    uint64 L3Miss = after.L3Miss - before.L3Miss;
+./cpucounters.h:    uint64 all = L2HitM + L3UnsharedHit + L3Miss;
+./cpucounters.h:    return after.L3Miss - before.L3Miss;
+./cpucounters.h:    uint64 L3Miss = after.L3Miss - before.L3Miss;
+./cpucounters.h:    return L2HitM + L3UnsharedHit + L3Miss;
+Binary file ./pcm-pcie.x matches
+Binary file ./pcm-sensor.x matches
+./cpucounterstest.cpp:        if (cpu_model != PCM::ATOM) cout << " L3MISS: L3 cache misses " << "\n";
+./cpucounterstest.cpp:            cout << " Core (SKT) | EXEC | IPC  | FREQ  | AFREQ | L3MISS | L2MISS | L3HIT | L2HIT | L3CLK | L2CLK  | READ  | WRITE | TEMP" << "\n" << "\n";
+./cpucounterstest.cpp:		cout << "EXEC;IPC;FREQ;AFREQ;L3MISS;L2MISS;L3HIT;L2HIT;L3CLK;L2CLK;READ;WRITE;";
+./cpucounterstest.cpp:           		cout << "EXEC;IPC;FREQ;AFREQ;L3MISS;L2MISS;L3HIT;L2HIT;L3CLK;L2CLK;READ;WRITE;TEMP;";
+./cpucounterstest.cpp:            		cout << "EXEC;IPC;FREQ;AFREQ;L3MISS;L2MISS;L3HIT;L2HIT;L3CLK;L2CLK;";
+Binary file ./cpucounters.o matches
+Binary file ./cpucounterstest.o matches
+Binary file ./pcm.x matches
+Binary file ./pcm-msr.x matches
+Binary file ./pcm-msr.o matches
+./cpucounters.cpp:    uint64 cL3Miss = 0;
+./cpucounters.cpp:    cL3Miss =               perfData[PCM::PERF_GEN_EVENT_0_POS];
+./cpucounters.cpp:        msr->read(IA32_PMC0, &cL3Miss);
+./cpucounters.cpp:        msr->read(IA32_PMC0, &cL3Miss);         // for Atom mapped to ArchLLCMiss field
+./cpucounters.cpp:    L3Miss += m->extractCoreGenCounterValue(cL3Miss);
+Binary file ./pcm-tsx.x matches
+Binary file ./pcm-memory.x matches
