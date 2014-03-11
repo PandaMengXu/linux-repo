@@ -14,7 +14,7 @@
 /*4 MSR Performance Counter for the above selector*/
 #define PMC0    0xc1
 #define PMC1    0xc2
-#define PMC2    0xc2
+#define PMC2    0xc3
 #define PMC3    0xc3
 
 /*Intel Software Developer Manual Page 2549*/ /*L1I L1D cache events has not been confirmed!*/
@@ -63,21 +63,22 @@
 /*MSR EN flag: when set start the counter!*/
 //#define MSR_ENFLAG      (0x1<<22)
 #define MSR_ENFLAG      (0x1<<22)
+#define MSR_INTFLAG     (0x01U << 20)
 
 
 /* 32bit insn v3*/
 static inline void rtxen_write_msr(uint32_t eax, uint32_t ecx)
 {
     /*clear counter first*/
-   __asm__ __volatile__ ("movl %0, %%ecx\n\t"
-        "xorl %%edx, %%edx\n\t"
-        "xorl %%eax, %%eax\n\t"
-        "wrmsr\n\t"
-        : /* no outputs */
-        : "m" (ecx)
-        : "eax", "ecx", "edx" /* all clobbered */);
+//   __asm__ __volatile__ ("movl %0, %%ecx\n\t"
+//        "xorl %%edx, %%edx\n\t"
+//        "xorl %%eax, %%eax\n\t"
+//        "wrmsr\n\t"
+//        : /* no outputs */
+//        : "m" (ecx)
+//        : "eax", "ecx", "edx" /* all clobbered */);
 
-   eax |= MSR_ENFLAG;
+//   eax |= MSR_ENFLAG;
 
    __asm__("movl %0, %%ecx\n\t" /* ecx contains the number of the MSR to set */
         "xorl %%edx, %%edx\n\t"/* edx contains the high bits to set the MSR to */
@@ -98,9 +99,9 @@ static inline void  rtxen_read_msr(uint32_t* ecx, uint32_t *eax, uint32_t* edx)
 
 static inline void delay(void )
 {
-    char tmp[1000]; 
+    char tmp[100000]; 
     int i;
-    for( i = 0; i < 1000; i++ )
+    for( i = 0; i < 100000; i++ )
     {
         tmp[i] = i * 2;
     }
@@ -120,7 +121,7 @@ int init_module(void)
     enum cache_level op;
     uint32_t eax, edx, ecx;
     uint64_t l3_all;
-    op = UOPS;
+    op = L3;
     switch(op)
     {
     case UOPS:
@@ -141,11 +142,16 @@ int init_module(void)
         SET_MSR_OS_BIT(eax);
         SET_EVENT_MASK(eax, L3_ALLREQ_EVENT, L3_ALLREQ_MASK);
         eax |= MSR_ENFLAG;
+        eax |= MSR_INTFLAG;
         ecx = PERFEVTSEL2;
         printk(KERN_INFO "before wrmsr: eax=%#010x, ecx=%#010x\n", eax, ecx);
         rtxen_write_msr(eax, ecx);
         printk(KERN_INFO "after wrmsr: eax=%#010x, ecx=%#010x\n", eax, ecx);
         printk(KERN_INFO "L3 all request set MSR PMC2\n");
+        printk(KERN_INFO "clear the ENFLAG\n");
+        eax &= (~MSR_ENFLAG);
+        printk(KERN_INFO "after clear ENFLAG: eax=%#010x, ecx=%#010x\n", eax, ecx);
+        rtxen_write_msr(eax, ecx);
         printk(KERN_INFO "delay by access an array\n");
         delay();
         ecx = PMC2;
